@@ -1,6 +1,10 @@
 const Hapi = require("@hapi/hapi");
 
-const scrapSpec = require("./app/models/spek");
+const scrapSpec = require("./app/models/specCar");
+const scrapGeneral = require("./app/models/general");
+const scrapImg = require("./app/models/carImg");
+const scrapReview = require("./app/models/review");
+
 
 const init = async () => {
     const server = Hapi.server({
@@ -16,6 +20,38 @@ const init = async () => {
             return result;
         }
     });
+
+    server.route({
+        method: "GET",
+        path: "/review",
+        handler: async (request, h) => {
+            const result = await scrapReview();
+            return result;
+        }
+    });
+
+    server.route({
+        method: "GET",
+        path: "/general",
+        handler: async (request, h) => {
+            const result = await scrapGeneral();
+            return result;
+        }
+    });
+
+    server.route({
+        method: "GET",
+        path: "/img",
+        handler: async (request, h) => {
+            const result = await scrapImg();
+            return result;
+
+
+        }
+
+    });
+
+
 
     await server.start();
     console.log("Server running on %s", server.info.uri);

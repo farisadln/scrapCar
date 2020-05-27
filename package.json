@@ -2,10 +2,10 @@
   "name": "scrapCar",
   "version": "1.0.0",
   "description": "",
-  "main": "app/models/spek.js",
+  "main": "app/models/specCar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/models/spek.js"
+    "start": "node app/models/specCar.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "lodash": "^4.17.15",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.3",

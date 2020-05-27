@@ -10,7 +10,7 @@ const fethHtml = async url => {
     }
 };
 
-const extractDeal = selector => {
+const specCar = selector => {
     const kapasistasMesin = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(1) > td:last-child")
@@ -194,14 +194,14 @@ const scrapSpec = async () => {
     const searchResults = selector("body")
         .find(".spec > .spec_clip > table[class='specTbl']");
 
-    const deals = searchResults
+    const specs = searchResults
         .map((idx, el) => {
             const elementSelector = selector(el);
-            return extractDeal(elementSelector);
+            return specCar(elementSelector);
         })
         .get();
 
-    return deals;
+    return specs;
 };
 
 module.exports = scrapSpec;
