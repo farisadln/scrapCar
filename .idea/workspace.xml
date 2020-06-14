@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdc57a20-bd09-493f-acd6-6ca977049368" name="Default Changelist" comment="" />
+    <list default="true" id="ec7fd78f-5e51-412d-9f26-57af8a168c08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/models/background.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models/brand.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/rose.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scrapCar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scrapCar.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/carImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/carImg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/general.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/general.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/review.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/specCar.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/specCar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1ayFPS7r6VpmSCyHLrclJRXxShJ" />
+  <component name="ProjectId" id="1dFGEmmj7N0Qmw0ZYNfsOefUI8I" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,64 +42,27 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\rose\WebstormProjects\scrapCar\app\models" />
-      <recent name="C:\Users\rose\WebstormProjects\scrapCar\helper" />
-    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cdc57a20-bd09-493f-acd6-6ca977049368" name="Default Changelist" comment="" />
-      <created>1587699902621</created>
+      <changelist id="ec7fd78f-5e51-412d-9f26-57af8a168c08" name="Default Changelist" comment="" />
+      <created>1592013318935</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1587699902621</updated>
-      <workItem from="1587699904218" duration="1258000" />
-      <workItem from="1587705700547" duration="6310000" />
-      <workItem from="1587788901888" duration="11000" />
-      <workItem from="1588647966503" duration="10163000" />
-      <workItem from="1588734996851" duration="2131000" />
-      <workItem from="1588740119319" duration="10963000" />
-      <workItem from="1588911921159" duration="233000" />
-      <workItem from="1588914514142" duration="2398000" />
-      <workItem from="1588917309315" duration="5132000" />
-      <workItem from="1589250089374" duration="406000" />
-      <workItem from="1589250522187" duration="18119000" />
-      <workItem from="1589335631714" duration="11450000" />
-      <workItem from="1589351110449" duration="5512000" />
-      <workItem from="1589534802282" duration="472000" />
-      <workItem from="1589539164095" duration="4221000" />
-      <workItem from="1589626411855" duration="706000" />
-      <workItem from="1589632258428" duration="513000" />
-      <workItem from="1591325060721" duration="29000" />
+      <updated>1592013318935</updated>
+      <workItem from="1592013323327" duration="516000" />
+      <workItem from="1592058494755" duration="1513000" />
+      <workItem from="1592102938134" duration="721000" />
+      <workItem from="1592132076174" duration="3336000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1220" y="295" key="FileChooserDialogImpl" timestamp="1589539407286">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="1220" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1589539407286" />
-    <state x="856" y="182" key="SettingsEditor" timestamp="1589535265716">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="856" y="182" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1589535265716" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1588922319322">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1588922319322" />
   </component>
 </project>
