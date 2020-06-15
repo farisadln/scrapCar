@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec7fd78f-5e51-412d-9f26-57af8a168c08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/models/background.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/models/brand.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/rose.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scrapCar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scrapCar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/background.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/carImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/carImg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/general.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/general.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/review.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/specCar.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/specCar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +38,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -59,10 +54,18 @@
       <workItem from="1592058494755" duration="1513000" />
       <workItem from="1592102938134" duration="721000" />
       <workItem from="1592132076174" duration="3336000" />
+      <workItem from="1592136932800" duration="7657000" />
+      <workItem from="1592177778505" duration="11538000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="295" key="FileChooserDialogImpl" timestamp="1592188905969">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="740" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1592188905969" />
   </component>
 </project>

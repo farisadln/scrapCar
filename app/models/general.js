@@ -41,26 +41,20 @@ const general = selector => {
         hargaOtr
     };
 };
+
 function saveToSQL(tipe, hargaOtr){
     let sql = "INSERT INTO general (`type`, `hargaOtr`) VALUES(?)";
     let values = [tipe,hargaOtr];
 
     db.query(sql, [values], function (err) {
+        console.log('Inserted data into table.')
         if (err) throw err;
         db.end()
     });
 
-    // db.connect();
-    // db.query('INSERT INTO general (type, hargaOtr) VALUES(?)',[tipe, hargaOtr],function(err,result){
-    //     console.log('Inserted data into table.')
-    // });
 
-    // db.query('INSERT INTO general(hargaOtr) VALUES(?)',[hargaOtr],function(err,result){
-    //     console.log('Inserted ' + hargaOtr + ' into table.')
-    // });
-
-    // db.end();
 }
+
 const scrapGeneral = async () => {
     const specUrl =
         "https://id.priceprice.com/Suzuki-Ignis-19115/";

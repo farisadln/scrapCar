@@ -1,5 +1,17 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
+const mysql = require('mysql');
+
+
+const db = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    password : '',
+    database : 'arenaScrap'
+});
+
+
+
 
 const fethHtml = async url => {
     try {
@@ -27,7 +39,7 @@ const carImg = selector => {
         .trim();
 
 
-
+    saveToSQL(name,review)
 
     return {
         name,
@@ -35,6 +47,20 @@ const carImg = selector => {
 
     };
 };
+
+function saveToSQL(name,review){
+    let sql = "INSERT INTO review (`name`,`review`) VALUES(?)";
+    let values = [name,review];
+
+    db.query(sql, [values], function (err) {
+        console.log('Inserted data into table.');
+        if (err) throw err;
+        // db.end()
+    });
+
+
+}
+
 
 const scrapImg = async () => {
     const specUrl =

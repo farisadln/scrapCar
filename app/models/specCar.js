@@ -1,6 +1,17 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 
+const mysql = require('mysql');
+
+
+const db = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    password : '',
+    database : 'arenaScrap'
+});
+
+
 const fethHtml = async url => {
     try {
         const { data } = await axios.get(url);
@@ -59,13 +70,13 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const lebarBan = selector
+    const banLebar = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(9) > td:last-child")
         .text()
         .trim();
 
-    const banRasio = selector
+    const banAspekRasio = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(10) > td:last-child")
         .text()
@@ -95,7 +106,7 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const gearBox = selector
+    const tipeGearBox = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(15) > td:last-child")
         .text()
@@ -107,7 +118,7 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const dimensiLebar = selector
+    const dimanesiLebar = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(17) > td:last-child")
         .text()
@@ -119,13 +130,13 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const sumbuRoda = selector
+    const dimensiSumbuRoda = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(19) > td:last-child")
         .text()
         .trim();
 
-    const groundClearnce = selector
+    const dimensiGroundClearance = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(20) > td:last-child")
         .text()
@@ -137,7 +148,7 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const kapasistasKargo = selector
+    const dimensiKargo = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(22) > td:last-child")
         .text()
@@ -149,11 +160,38 @@ const specCar = selector => {
         .text()
         .trim();
 
-    const jmlKursi = selector
+    const jmlKuris = selector
         .find("tbody")
         .find("tr[class='specTbl_tls']:nth-child(24) > td:last-child")
         .text()
         .trim();
+
+    saveToSQL(
+        kapasistasMesin,
+        jmlSilinder,
+        jmlKatup,
+        drivetrain,
+        maxTenaga,
+        maxTorsi,
+        jenisBahanBakar,
+        kapasitasBahanBakar,
+        banLebar,
+        banAspekRasio,
+        banDiameter,
+        suspensiDepan,
+        suspensiBelakang,
+        tipeTransmisi,
+        tipeGearBox,
+        dimensiPanjang,
+        dimanesiLebar,
+        dimensiTinggi,
+        dimensiSumbuRoda,
+        dimensiGroundClearance,
+        dimensiBerat,
+        dimensiKargo,
+        jmlPintu,
+        jmlKuris);
+
 
     return {
         kapasistasMesin,
@@ -164,24 +202,85 @@ const specCar = selector => {
         maxTorsi,
         jenisBahanBakar,
         kapasitasBahanBakar,
-        lebarBan,
-        banRasio,
+        banLebar,
+        banAspekRasio,
         banDiameter,
         suspensiDepan,
         suspensiBelakang,
         tipeTransmisi,
-        gearBox,
+        tipeGearBox,
         dimensiPanjang,
-        dimensiLebar,
+        dimanesiLebar,
         dimensiTinggi,
-        sumbuRoda,
-        groundClearnce,
+        dimensiSumbuRoda,
+        dimensiGroundClearance,
         dimensiBerat,
-        kapasistasKargo,
+        dimensiKargo,
         jmlPintu,
-        jmlKursi
+        jmlKuris
     };
 };
+
+
+function saveToSQL( kapasistasMesin,
+                    jmlSilinder,
+                    jmlKatup,
+                    drivetrain,
+                    maxTenaga,
+                    maxTorsi,
+                    jenisBahanBakar,
+                    kapasitasBahanBakar,
+                    banLebar,
+                    banAspekRasio,
+                    banDiameter,
+                    suspensiDepan,
+                    suspensiBelakang,
+                    tipeTransmisi,
+                    tipeGearBox,
+                    dimensiPanjang,
+                    dimanesiLebar,
+                    dimensiTinggi,
+                    dimensiSumbuRoda,
+                    dimensiGroundClearance,
+                    dimensiBerat,
+                    dimensiKargo,
+                    jmlPintu,
+                    jmlKuris){
+    let sql = "INSERT INTO specification (`kapasistasMesin`, `jmlSilinder`, `jmlKatup`, `drivetrain`, `maxTenaga`, `maxTorsi`, `jenisBahanBakar`, `kapasitasBahanBakar`, `banLebar`, `banAspekRasio`, `banDiameter`, `suspensiDepan`, `suspensiBelakang`, `tipeTransmisi`, `tipeGearBox`, `dimensiPanjang`, `dimanesiLebar`, `dimensiTinggi`, `dimensiSumbuRoda`, `dimensiGroundClearance`, `dimensiBerat`, `dimensiKargo`, `jmlPintu`, `jmlKuris`) VALUES(?)";
+    let values = [
+        kapasistasMesin,
+        jmlSilinder,
+        jmlKatup,
+        drivetrain,
+        maxTenaga,
+        maxTorsi,
+        jenisBahanBakar,
+        kapasitasBahanBakar,
+        banLebar,
+        banAspekRasio,
+        banDiameter,
+        suspensiDepan,
+        suspensiBelakang,
+        tipeTransmisi,
+        tipeGearBox,
+        dimensiPanjang,
+        dimanesiLebar,
+        dimensiTinggi,
+        dimensiSumbuRoda,
+        dimensiGroundClearance,
+        dimensiBerat,
+        dimensiKargo,
+        jmlPintu,
+        jmlKuris];
+
+    db.query(sql, [values], function (err) {
+        console.log('Inserted data into table.');
+        if (err) throw err;
+        db.end()
+    });
+
+
+}
 
 const scrapSpec = async () => {
     const specUrl =

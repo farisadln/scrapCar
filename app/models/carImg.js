@@ -2,7 +2,15 @@ const cheerio = require("cheerio");
 const axios = require("axios").default;
 const _ = require('lodash');
 
+const mysql = require('mysql');
 
+
+const db = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    password : '',
+    database : 'arenaScrap'
+});
 
 
 
@@ -20,20 +28,54 @@ const carImg = selector => {
 
 
     let img1 = selector
-        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(1) span.gallery_thumbIn > img[src$='.jpg']")
+        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(1) > p.gallery_thumb span.gallery_thumbIn > img[src$='.jpg']")
         .attr('src');
 
     let img2 = selector
-        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(2) span.gallery_thumbIn > img")
+        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(2) > p.gallery_thumb span.gallery_thumbIn > img[src$='.jpg']")
         .attr("src");
 
     let img3 = selector
-        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(3) span.gallery_thumbIn > img")
+        .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(3) > p.gallery_thumb span.gallery_thumbIn > img[src$='.jpg']")
         .attr("src");
-    console.log(img1)
-return img1
+
+
+
+    saveToSQL(img1,img2,img3);
+
+
+    let arr = [{img1,img2,img3}];
+
+
+    function filterItems(arr, query) {
+        return arr.filter(function(el) {
+            return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        })
+    }
+
+
+    let ress =  filterItems(arr, '.jpg');
+
+    console.log(ress);
+
+    return {
+        img1,img2,img3
+    }
 };
 
+
+function saveToSQL(img1,img2,img3){
+    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`) VALUES(?)";
+    let values = [img1,img2,img3];
+
+    db.query(sql, [values], function (err) {
+        console.log('Inserted data into table.');
+        if (err) throw err;
+        // db.end()
+    });
+
+
+}
 
 
 

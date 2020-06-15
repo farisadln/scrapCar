@@ -6,8 +6,8 @@ const mysql = require('mysql');
 const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'root',
-    database : 'scrap'
+    password : '',
+    database : 'arenaScrap'
 });
 
 
@@ -21,54 +21,51 @@ const fethHtml = async url => {
 };
 
 const background = selector => {
-    const img1 = selector
-        .find("h2")
-        .find("h2[class='ivTl'] > span[class='ivTl_name']")
-        .text()
-        .trim();
+    const url_img1 = selector
+        .find("li.linkItem:nth-child(1) > div.newsSum.s-newsSum > div.newsSum_thumb > img")
+        .attr('src');
 
-    const img2 = selector
-        .find("p")
-        .find("p[class='modelDtl_price'] > span[class='modelDtl_priceLow']")
-        .text()
-        .trim();
+    const url_img2 = selector
+        .find("li.linkItem:nth-child(2) > div.newsSum.s-newsSum > div.newsSum_thumb > img")
+        .attr('src');
 
-    const img3 = selector
-        .find("p")
-        .find("p[class='modelDtl_price'] > span[class='modelDtl_priceLow']")
-        .text()
-        .trim();
+    const url_img3 = selector
+        .find("li.linkItem:nth-child(3) > div.newsSum.s-newsSum > div.newsSum_thumb > img")
+        .attr('src');
 
 
-    saveToSQL(tipe,hargaOtr);
+    saveToSQL(url_img1, url_img2, url_img3);
+
 
     return {
-        tipe,
-        hargaOtr
+        url_img1,url_img2,url_img3
     };
 };
 
-function saveToSQL(tipe,hargaOtr){
-    db.connect();
-    db.query('INSERT INTO img(img1) VALUES(?)',[tipe],function(err,result){
-        console.log('Inserted ' + tipe + ' into table.')
+function saveToSQL( url_img1,
+                    url_img2,
+                    url_img3){
+    let sql = "INSERT INTO background (`url_img1`,`url_img2`,`url_img3`) VALUES(?)";
+    let values = [ url_img1, url_img2, url_img3];
+
+    db.query(sql, [values], function (err) {
+        console.log('Inserted data into table.');
+        if (err) throw err;
+        // db.end()
     });
-    db.query('INSERT INTO img(img1) VALUES(?)',[hargaOtr],function(err,result){
-        console.log('Inserted ' + hargaOtr + ' into table.')
-    });
-    db.end();
+
 }
 
 const scrapBackground = async () => {
     const specUrl =
-        "https://id.priceprice.com/Suzuki-Ignis-19115/";
+        "https://id.priceprice.com/mobil/";
 
     const html = await fethHtml(specUrl);
 
     const selector = cheerio.load(html);
 
     const searchResults = selector("body")
-        .find(".modelDtlWrap > .modelDtl");
+        .find(".modal_bgClip");
 
     const backgrounds = searchResults
         .map((idx, el) => {

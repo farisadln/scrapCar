@@ -4,6 +4,7 @@ const scrapSpec = require("./app/models/specCar");
 const scrapGeneral = require("./app/models/general");
 const scrapImg = require("./app/models/carImg");
 const scrapReview = require("./app/models/review");
+const scrapBackground = require("./app/models/background")
 
 
 const init = async () => {
@@ -49,6 +50,15 @@ const init = async () => {
 
         }
 
+    });
+
+    server.route({
+        method: "GET",
+        path: "/background",
+        handler: async (request, h) => {
+            const result = await scrapBackground();
+            return result;
+        }
     });
 
 
