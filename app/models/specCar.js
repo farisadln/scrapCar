@@ -7,8 +7,8 @@ const mysql = require('mysql');
 const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : '',
-    database : 'arenaScrap'
+    password : 'root',
+    database : 'scrap'
 });
 
 
@@ -276,13 +276,17 @@ function saveToSQL( kapasistasMesin,
     db.query(sql, [values], function (err) {
         console.log('Inserted data into table.');
         if (err) throw err;
-        db.end()
+        
     });
 
 
 }
 
+
+
 const scrapSpec = async () => {
+
+   
     const specUrl =
         "https://id.priceprice.com/Suzuki-Ignis-19115/specs/";
 
