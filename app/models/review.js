@@ -38,8 +38,9 @@ const carImg = selector => {
         .text()
         .trim();
 
+    let createdAt = new Date();
 
-    saveToSQL(name,review)
+    saveToSQL(name,review,createdAt)
 
     return {
         name,
@@ -48,9 +49,10 @@ const carImg = selector => {
     };
 };
 
-function saveToSQL(name,review){
-    let sql = "INSERT INTO review (`name`,`review`) VALUES(?)";
-    let values = [name,review];
+function saveToSQL(name,review,createdAt){
+    let sql = "INSERT INTO review (`name`,`review`,`createdAt`) VALUES(?)";
+    let values = [name,review,createdAt];
+    console.log(values)
 
     db.query(sql, [values], function (err) {
         console.log('Inserted data into table.');
@@ -64,7 +66,7 @@ function saveToSQL(name,review){
 
 const scrapImg = async () => {
     const specUrl =
-        "https://id.priceprice.com/Suzuki-Ignis-19115/reviews/";
+        "https://id.priceprice.com/BMW-6-Series-7731/reviews/";
 
     const html = await fethHtml(specUrl);
 

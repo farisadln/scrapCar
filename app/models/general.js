@@ -6,7 +6,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "scrap",
+  database: "cararena_be",
 });
 
 
@@ -25,7 +25,11 @@ const general = (selector) => {
     .text()
     .trim();
 
-  saveToSQL(tipe, hargaOtr);
+
+  let createdAt = new Date();
+
+
+  saveToSQL(tipe, hargaOtr,createdAt);
 
   return {
     tipe,
@@ -33,9 +37,9 @@ const general = (selector) => {
   };
 };
 
-function saveToSQL(tipe, hargaOtr) {
-  let sql = "INSERT INTO general (`type`, `hargaOtr`) VALUES(?)";
-  let values = [tipe, hargaOtr];
+function saveToSQL(tipe, hargaOtr, createdAt) {
+  let sql = "INSERT INTO general (`type`, `hargaOtr`, `createdAt`) VALUES(?)";
+  let values = [tipe, hargaOtr,createdAt];
   console.log(values)
 
   db.query(sql, [values], function (err) {
@@ -59,11 +63,12 @@ const fethHtml = async (url) => {
 
 const scrapGeneral = async () => {
     
-    const specUrl = "https://id.priceprice.com/Suzuki-Ignis-19115/";
+    const specUrl = "https://id.priceprice.com/BMW-6-Series-7731/";
 
-    const specUrl2 = "https://id.priceprice.com/Daihatsu-Terios-7794/";
 
-    const html = await fethHtml((specUrl,specUrl2));
+    const html = await fethHtml(specUrl);
+
+    
    
 
     const selector = cheerio.load(html);

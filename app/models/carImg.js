@@ -11,7 +11,10 @@ const db = mysql.createConnection({
     password : 'root',
     database : 'scrap'
 });
-
+db.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
 
 
 const fethHtml = async url => {
@@ -39,9 +42,11 @@ const carImg = selector => {
         .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(3) > p.gallery_thumb span.gallery_thumbIn > img[src$='.jpg']")
         .attr("src");
 
+      
+        let createdAt = new Date();
 
 
-    saveToSQL(img1,img2,img3);
+    saveToSQL(img1,img2,img3,createdAt);
 
 
     let arr = [{img1,img2,img3}];
@@ -55,8 +60,9 @@ const carImg = selector => {
 
 
     let ress =  filterItems(arr, '.jpg');
+    
 
-    console.log(ress);
+
 
     return {
         img1,img2,img3
@@ -64,9 +70,9 @@ const carImg = selector => {
 };
 
 
-function saveToSQL(img1,img2,img3){
-    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`) VALUES(?)";
-    let values = [img1,img2,img3];
+function saveToSQL(img1,img2,img3,createdAt){
+    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`,`createdAt`) VALUES(?)";
+    let values = [img1,img2,img3,createdAt];
 
     db.query(sql, [values], function (err) {
         console.log('Inserted data into table.');
@@ -83,7 +89,7 @@ function saveToSQL(img1,img2,img3){
 
 const scrapImg = async () => {
     const specUrl =
-        "https://id.priceprice.com/Suzuki-Ignis-19115/foto-gambar/";
+        "https://id.priceprice.com/BMW-6-Series-7731/foto-gambar/";
 
 
     const html = await fethHtml(specUrl);

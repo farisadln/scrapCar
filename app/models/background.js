@@ -34,7 +34,9 @@ const background = selector => {
         .attr('src');
 
 
-    saveToSQL(url_img1, url_img2, url_img3);
+        let createdAt = new Date();
+
+    saveToSQL(url_img1, url_img2, url_img3,createdAt);
 
 
     return {
@@ -44,9 +46,10 @@ const background = selector => {
 
 function saveToSQL( url_img1,
                     url_img2,
-                    url_img3){
-    let sql = "INSERT INTO background (`url_img1`,`url_img2`,`url_img3`) VALUES(?)";
-    let values = [ url_img1, url_img2, url_img3];
+                    url_img3,
+                    createdAt){
+    let sql = "INSERT INTO background (`url_img1`,`url_img2`,`url_img3`,`createdAt`) VALUES(?)";
+    let values = [ url_img1, url_img2, url_img3,createdAt];
 
     db.query(sql, [values], function (err) {
         console.log('Inserted data into table.');
