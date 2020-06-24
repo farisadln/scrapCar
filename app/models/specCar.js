@@ -5,9 +5,9 @@ const mysql = require("mysql");
 
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "root",
-  database: "scrap",
+  user: "rose",
+  password: "",
+  database: "cararena_be",
 });
 
 const fethHtml = async (url) => {
@@ -166,6 +166,7 @@ const specCar = (selector) => {
     .text()
     .trim();
 
+    let createdAt = new Date();
   saveToSQL(
     kapasistasMesin,
     jmlSilinder,
@@ -190,7 +191,8 @@ const specCar = (selector) => {
     dimensiBerat,
     dimensiKargo,
     jmlPintu,
-    jmlKuris
+    jmlKuris,
+    createdAt
   );
 
   return {
@@ -220,7 +222,7 @@ const specCar = (selector) => {
     jmlKuris,
   };
 };
-let createdAt = new Date();
+
 
 function saveToSQL(
   kapasistasMesin,
@@ -278,6 +280,7 @@ function saveToSQL(
     jmlKuris,
     createdAt
   ];
+  console.log(values)
 
   db.query(sql, [values], function (err) {
     console.log("Inserted data into table.");

@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     host : 'localhost',
     user : 'rose',
     password : '',
-    database : ''
+    database : 'cararena_be'
 });
 db.connect(function(err) {
     if (err) throw err;
