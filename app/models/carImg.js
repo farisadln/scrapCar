@@ -11,10 +11,7 @@ const db = mysql.createConnection({
     password : '',
     database : 'cararena_be'
 });
-db.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
+
 
 
 const fethHtml = async url => {
