@@ -1,10 +1,9 @@
 const Hapi = require("@hapi/hapi");
-
-const scrapSpec = require("./app/models/specCar");
-const scrapGeneral = require("./app/models/general");
-const scrapImg = require("./app/models/carImg");
-const scrapReview = require("./app/models/review");
 const scrapBackground = require("./app/models/background")
+const scrapGeneral = require("./app/models/general");
+const scrapSpec = require("./app/models/specCar");
+const scrapReview = require("./app/models/review");
+const scrapImg = require("./app/models/carImg");
 
 
 const init = async () => {

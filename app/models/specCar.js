@@ -1,14 +1,8 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 
-const mysql = require("mysql");
+let db = require('../config/db')
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "cararena_be",
-});
 
 const fethHtml = async (url) => {
   try {
@@ -288,8 +282,27 @@ function saveToSQL(
   });
 }
 
-const scrapSpec = async () => {
-  const specUrl = "https://id.priceprice.com/BMW-6-Series-7731/specs/";
+let query = "SELECT urlSpecification FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriSpec = hasil
+    scrapSpec(uriSpec)
+
+    return uriSpec
+    
+  }
+});
+
+const scrapSpec = async (uriSpec) => {
+
+  console.log(uriSpec)
+
+  const specUrl = uriSpec;
 
   const html = await fethHtml(specUrl);
 

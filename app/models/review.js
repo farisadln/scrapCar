@@ -1,15 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-const mysql = require('mysql');
-var _ = require('lodash');
-
-const db = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : '',
-    database : 'arenaScrap'
-});
-
+let db = require('../config/db')
 
 
 
@@ -22,7 +13,7 @@ const fethHtml = async url => {
     }
 };
 
-const carImg = selector => {
+const review = selector => {
 
     const name = selector
         .find("li[class='reviewDtlList_item base']:nth-child(1) > div[class='reviewDtl'] " +
@@ -49,30 +40,6 @@ const carImg = selector => {
     };
 };
 
-db.connect(function(err) 
-{
-  if (err) throw err;
-    db.query("SELECT `url` FROM `url`", function (err, result, fields) 
-    {
-      if (err) throw err;
-      var length = Object.keys(result).length;
-     
-      for (var i = 0; i < length; i++) 
-      {
-        
-
-   let ress =  result[i]
-   let arr = Object.values(ress)
- 
-   
-      console.log(ress)
-
-      };
-
-    });
-
-});
-
 
 
 function saveToSQL(name,review,createdAt){
@@ -89,10 +56,26 @@ function saveToSQL(name,review,createdAt){
 
 }
 
+let query = "SELECT urlReview FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriReview = hasil
+    scrapReview(uriReview)
 
-const scrapImg = async () => {
-    const specUrl =
-        "https://id.priceprice.com/BMW-6-Series-7731/reviews/";
+    return uriReview
+    
+  }
+});
+
+
+
+const scrapReview = async (uriReview) => {
+    const specUrl = uriReview;
 
     const html = await fethHtml(specUrl);
 
@@ -104,11 +87,11 @@ const scrapImg = async () => {
     const reviews = searchResults
         .map((idx, el) => {
             const elementSelector = selector(el);
-            return carImg(elementSelector);
+            return review(elementSelector);
         })
         .get();
 
     return reviews;
 };
 
-module.exports = scrapImg;
+module.exports = scrapReview;

@@ -1,14 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-const mysql = require('mysql');
-
-
-const db = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : '',
-    database : 'cararena_be'
-});
+let db = require('../config/db')
 
 
 const fethHtml = async url => {
@@ -59,9 +51,25 @@ function saveToSQL( url_img1,
 
 }
 
-const scrapBackground = async () => {
-    const specUrl =
-        "https://id.priceprice.com/mobil/";
+let query = "SELECT urlBackground FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriBackground = hasil
+    scrapBackground(uriBackground)
+
+    return uriBackground
+    
+  }
+});
+
+
+const scrapBackground = async (uriBackground) => {
+    const specUrl = uriBackground;
 
     const html = await fethHtml(specUrl);
 
