@@ -10,7 +10,7 @@ const scrapBackground = require("./app/models/background")
 const init = async () => {
     const server = Hapi.server({
         port: 3000,
-        host: "139.162.28.184"
+        host: "localhost"
     });
 
     server.route({
