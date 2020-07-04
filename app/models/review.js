@@ -1,13 +1,13 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const mysql = require('mysql');
-
+var _ = require('lodash');
 
 const db = mysql.createConnection({
     host : 'localhost',
-    user : 'rose',
+    user : 'root',
     password : '',
-    database : 'cararena_be'
+    database : 'arenaScrap'
 });
 
 
@@ -48,6 +48,32 @@ const carImg = selector => {
 
     };
 };
+
+db.connect(function(err) 
+{
+  if (err) throw err;
+    db.query("SELECT `url` FROM `url`", function (err, result, fields) 
+    {
+      if (err) throw err;
+      var length = Object.keys(result).length;
+     
+      for (var i = 0; i < length; i++) 
+      {
+        
+
+   let ress =  result[i]
+   let arr = Object.values(ress)
+ 
+   
+      console.log(ress)
+
+      };
+
+    });
+
+});
+
+
 
 function saveToSQL(name,review,createdAt){
     let sql = "INSERT INTO review (`name`,`review`,`createdAt`) VALUES(?)";
