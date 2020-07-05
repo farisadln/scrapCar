@@ -1,14 +1,8 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 
-const mysql = require("mysql");
+let db = require('../config/db')
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "cararena_be",
-});
 
 const fethHtml = async (url) => {
   try {
@@ -166,34 +160,55 @@ const specCar = (selector) => {
     .text()
     .trim();
 
+  let sql = "SELECT id FROM general ORDER BY id DESC LIMIT 1"
+
+  db.query(sql, function (error, rows, fields) {
+    var glob = "0"
+    if (error) {
+      console.log(error);
+    } else {
+      let obj = Object.values(rows[0]);
+      let array = obj;
+      let hasil = array.toString();
+      generalId = hasil
+      generalId = 1 + parseInt(generalId)
+      saveToSQL(
+        kapasistasMesin,
+        jmlSilinder,
+        jmlKatup,
+        drivetrain,
+        maxTenaga,
+        maxTorsi,
+        jenisBahanBakar,
+        kapasitasBahanBakar,
+        banLebar,
+        banAspekRasio,
+        banDiameter,
+        suspensiDepan,
+        suspensiBelakang,
+        tipeTransmisi,
+        tipeGearBox,
+        dimensiPanjang,
+        dimanesiLebar,
+        dimensiTinggi,
+        dimensiSumbuRoda,
+        dimensiGroundClearance,
+        dimensiBerat,
+        dimensiKargo,
+        jmlPintu,
+        jmlKuris,
+        generalId,
+        createdAt
+      );
+      console.log("specId "+ generalId)
+    }
+
+  })
+
+
+
     let createdAt = new Date();
-  saveToSQL(
-    kapasistasMesin,
-    jmlSilinder,
-    jmlKatup,
-    drivetrain,
-    maxTenaga,
-    maxTorsi,
-    jenisBahanBakar,
-    kapasitasBahanBakar,
-    banLebar,
-    banAspekRasio,
-    banDiameter,
-    suspensiDepan,
-    suspensiBelakang,
-    tipeTransmisi,
-    tipeGearBox,
-    dimensiPanjang,
-    dimanesiLebar,
-    dimensiTinggi,
-    dimensiSumbuRoda,
-    dimensiGroundClearance,
-    dimensiBerat,
-    dimensiKargo,
-    jmlPintu,
-    jmlKuris,
-    createdAt
-  );
+  
 
   return {
     kapasistasMesin,
@@ -249,10 +264,11 @@ function saveToSQL(
   dimensiKargo,
   jmlPintu,
   jmlKuris,
+  generalId,
   createdAt
 ) {
   let sql =
-    "INSERT INTO specification (`kapasistasMesin`, `jmlSilinder`, `jmlKatup`, `drivetrain`, `maxTenaga`, `maxTorsi`, `jenisBahanBakar`, `kapasitasBahanBakar`, `banLebar`, `banAspekRasio`, `banDiameter`, `suspensiDepan`, `suspensiBelakang`, `tipeTransmisi`, `tipeGearBox`, `dimensiPanjang`, `dimanesiLebar`, `dimensiTinggi`, `dimensiSumbuRoda`, `dimensiGroundClearance`, `dimensiBerat`, `dimensiKargo`, `jmlPintu`, `jmlKuris`,`createdAt`) VALUES(?)";
+    "INSERT INTO specification (`kapasistasMesin`, `jmlSilinder`, `jmlKatup`, `drivetrain`, `maxTenaga`, `maxTorsi`, `jenisBahanBakar`, `kapasitasBahanBakar`, `banLebar`, `banAspekRasio`, `banDiameter`, `suspensiDepan`, `suspensiBelakang`, `tipeTransmisi`, `tipeGearBox`, `dimensiPanjang`, `dimanesiLebar`, `dimensiTinggi`, `dimensiSumbuRoda`, `dimensiGroundClearance`, `dimensiBerat`, `dimensiKargo`, `jmlPintu`, `jmlKuris`,`generalId`,`createdAt`) VALUES(?)";
   let values = [
     kapasistasMesin,
     jmlSilinder,
@@ -278,6 +294,7 @@ function saveToSQL(
     dimensiKargo,
     jmlPintu,
     jmlKuris,
+    generalId,
     createdAt
   ];
   console.log(values)
@@ -288,8 +305,27 @@ function saveToSQL(
   });
 }
 
-const scrapSpec = async () => {
-  const specUrl = "https://id.priceprice.com/BMW-6-Series-7731/specs/";
+let query = "SELECT urlSpecification FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriSpec = hasil
+    scrapSpec(uriSpec)
+
+    return uriSpec
+    
+  }
+});
+
+const scrapSpec = async (uriSpec) => {
+
+  console.log(uriSpec)
+
+  const specUrl = uriSpec;
 
   const html = await fethHtml(specUrl);
 

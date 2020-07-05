@@ -27,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LA/cararena_fe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SvnConfiguration">
@@ -49,6 +49,7 @@
       <workItem from="1592191008629" duration="28000" />
       <workItem from="1592205974492" duration="1389000" />
       <workItem from="1592485459542" duration="27000" />
+      <workItem from="1592872572263" duration="89000" />
     </task>
     <servers />
   </component>

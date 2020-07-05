@@ -1,15 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-const mysql = require('mysql');
-
-
-const db = mysql.createConnection({
-    host : 'localhost',
-    user : 'rose',
-    password : '',
-    database : 'cararena_be'
-});
-
+let db = require('../config/db')
 
 
 
@@ -22,7 +13,7 @@ const fethHtml = async url => {
     }
 };
 
-const carImg = selector => {
+const review = selector => {
 
     const name = selector
         .find("li[class='reviewDtlList_item base']:nth-child(1) > div[class='reviewDtl'] " +
@@ -38,9 +29,28 @@ const carImg = selector => {
         .text()
         .trim();
 
-    let createdAt = new Date();
 
-    saveToSQL(name,review,createdAt)
+        
+  let sql = "SELECT id FROM general ORDER BY id DESC LIMIT 1"
+  db.query(sql, function (error, rows, fields) {
+    var glob = "0"
+    if (error) {
+      console.log(error);
+    } else {
+      let obj = Object.values(rows[0]);
+      let array = obj;
+      let hasil = array.toString();
+      generalId = hasil
+      generalId = 1 + parseInt(generalId)
+      saveToSQL(name,review,generalId,createdAt)
+      console.log("reviewId "+ generalId)
+    }
+
+  })
+
+    let createdAt = new Date();
+    console.log(createdAt)
+    
 
     return {
         name,
@@ -49,9 +59,11 @@ const carImg = selector => {
     };
 };
 
-function saveToSQL(name,review,createdAt){
-    let sql = "INSERT INTO review (`name`,`review`,`createdAt`) VALUES(?)";
-    let values = [name,review,createdAt];
+
+
+function saveToSQL(name,review,generalId,createdAt){
+    let sql = "INSERT INTO review (`name`,`review`,`generalId`,`createdAt`) VALUES(?)";
+    let values = [name,review,generalId,createdAt];
     console.log(values)
 
     db.query(sql, [values], function (err) {
@@ -63,10 +75,26 @@ function saveToSQL(name,review,createdAt){
 
 }
 
+let query = "SELECT urlReview FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriReview = hasil
+    scrapReview(uriReview)
 
-const scrapImg = async () => {
-    const specUrl =
-        "https://id.priceprice.com/BMW-6-Series-7731/reviews/";
+    return uriReview
+    
+  }
+});
+
+
+
+const scrapReview = async (uriReview) => {
+    const specUrl = uriReview;
 
     const html = await fethHtml(specUrl);
 
@@ -78,11 +106,11 @@ const scrapImg = async () => {
     const reviews = searchResults
         .map((idx, el) => {
             const elementSelector = selector(el);
-            return carImg(elementSelector);
+            return review(elementSelector);
         })
         .get();
 
     return reviews;
 };
 
-module.exports = scrapImg;
+module.exports = scrapReview;

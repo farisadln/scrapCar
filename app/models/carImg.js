@@ -1,16 +1,10 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const _ = require('lodash');
+let db = require('../config/db')
 
-const mysql = require('mysql');
 
 
-const db = mysql.createConnection({
-    host : 'localhost',
-    user : 'rose',
-    password : '',
-    database : 'cararena_be'
-});
 
 
 
@@ -43,21 +37,30 @@ const carImg = selector => {
         let createdAt = new Date();
 
 
-    saveToSQL(img1,img2,img3,createdAt);
+        let sql = "SELECT id FROM specification ORDER BY id DESC LIMIT 1"
+
+        db.query(sql, function (error, rows, fields) {
+          var glob = "0"
+          if (error) {
+            console.log(error);
+          } else {
+            let obj = Object.values(rows[0]);
+            let array = obj;
+            let hasil = array.toString();
+            specificationId = hasil
+            specificationId = 1 + parseInt(specificationId)
+            saveToSQL(img1,img2,img3,specificationId,createdAt);
+            console.log("imgId "+ specificationId)
+          }
+      
+        })    
+
+    
 
 
     let arr = [{img1,img2,img3}];
 
 
-    function filterItems(arr, query) {
-        return arr.filter(function(el) {
-            return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
-        })
-    }
-
-
-    let ress =  filterItems(arr, '.jpg');
-    
 
 
 
@@ -67,9 +70,10 @@ const carImg = selector => {
 };
 
 
-function saveToSQL(img1,img2,img3,createdAt){
-    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`,`createdAt`) VALUES(?)";
-    let values = [img1,img2,img3,createdAt];
+function saveToSQL(img1,img2,img3,specificationId,createdAt){
+    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`,`specificationId`,`createdAt`) VALUES(?)";
+    let values = [img1,img2,img3,specificationId,createdAt];
+    console.log(values);
 
     db.query(sql, [values], function (err) {
         console.log('Inserted data into table.');
@@ -80,13 +84,29 @@ function saveToSQL(img1,img2,img3,createdAt){
 
 }
 
+let query = "SELECT urlImg FROM urlScrap ORDER BY id DESC LIMIT 1";
+db.query(query, function (error, rows, fields) {
+  if (error) {
+    console.log(error);
+  } else {
+    let obj = Object.values(rows[0]);
+    let array = obj;
+    let hasil = array.toString();
+    uriImg = hasil
+    scrapImg(uriImg)
+
+    return uriImg
+    
+  }
+});
 
 
 
 
-const scrapImg = async () => {
-    const specUrl =
-        "https://id.priceprice.com/BMW-6-Series-7731/foto-gambar/";
+
+const scrapImg = async (uriImg) => {
+
+    const specUrl = uriImg;
 
 
     const html = await fethHtml(specUrl);
