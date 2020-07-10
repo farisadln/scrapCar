@@ -7,7 +7,6 @@ let db = require('../config/db')
 
 
 
-
 const fethHtml = async url => {
     try {
         const { data } = await axios.get(url);
@@ -33,6 +32,8 @@ const carImg = selector => {
         .find("li.gallery_thumbItem.s-gallery_thumbItem:nth-child(3) > p.gallery_thumb span.gallery_thumbIn > img[src$='.jpg']")
         .attr("src");
 
+        let logActivity	= "Created by Webcrawler"
+
       
         let createdAt = new Date();
 
@@ -49,7 +50,7 @@ const carImg = selector => {
             let hasil = array.toString();
             specificationId = hasil
             specificationId = 1 + parseInt(specificationId)
-            saveToSQL(img1,img2,img3,specificationId,createdAt);
+            saveToSQL(img1,img2,img3,specificationId,logActivity,createdAt);
             console.log("imgId "+ specificationId)
           }
       
@@ -70,9 +71,9 @@ const carImg = selector => {
 };
 
 
-function saveToSQL(img1,img2,img3,specificationId,createdAt){
-    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`,`specificationId`,`createdAt`) VALUES(?)";
-    let values = [img1,img2,img3,specificationId,createdAt];
+function saveToSQL(img1,img2,img3,specificationId,logActivity,createdAt){
+    let sql = "INSERT INTO imgCar (`img1`,`img2`,`img3`,`specificationId`,`logActivity`,`createdAt`) VALUES(?)";
+    let values = [img1,img2,img3,specificationId,logActivity,createdAt];
     console.log(values);
 
     db.query(sql, [values], function (err) {
@@ -93,7 +94,12 @@ db.query(query, function (error, rows, fields) {
     let array = obj;
     let hasil = array.toString();
     uriImg = hasil
-    scrapImg(uriImg)
+    let urls = hasil.split(';');
+      for(let i=0;i < urls.length;i++){
+        uriImg = urls[i];
+        console.log("uriGeneral" + uriImg)
+        scrapImg(uriImg)
+      }
 
     return uriImg
     

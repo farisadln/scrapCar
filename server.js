@@ -49,50 +49,6 @@ const init = async () => {
         
     }
     
- 
-    // server.route({
-    //     method: "GET",
-    //     path: "/spek",
-    //     handler: async (request, h) => {
-    //         const result = await scrapSpec();
-    //         return result;
-    //     }
-    // });
-
-    // server.route({
-    //     method: "GET",
-    //     path: "/review",
-    //     handler: async (request, h) => {
-    //         const result = await scrapReview();
-    //         return result;
-    //     }
-    // });
-
-   
-
-    // server.route({
-    //     method: "GET",
-    //     path: "/img",
-    //     handler: async (request, h) => {
-    //         const result = await scrapImg();
-    //         return result;
-    //     }
-
-    // });
-
-
-
- 
-
-
-    // server.route({
-    //     method: "GET",
-    //     path: "/background",
-    //     handler: async (request, h) => {
-    //         const result = await scrapBackground();
-    //         return result;
-    //     }
-    // });
 
 
 

@@ -84,7 +84,13 @@ db.query(query, function (error, rows, fields) {
     let array = obj;
     let hasil = array.toString();
     uriReview = hasil
-    scrapReview(uriReview)
+    let urls = hasil.split(';');
+      for(let i=0;i < urls.length;i++){
+        uriReview = urls[i];
+        console.log("uriGeneral" + uriReview)
+        scrapReview(uriReview)
+      }
+    
 
     return uriReview
     

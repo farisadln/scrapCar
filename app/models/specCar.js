@@ -197,6 +197,7 @@ const specCar = (selector) => {
         dimensiKargo,
         jmlPintu,
         jmlKuris,
+        logActivity,
         generalId,
         createdAt
       );
@@ -206,7 +207,7 @@ const specCar = (selector) => {
   })
 
 
-
+    let logActivity	= "Created by Webcrawler"
     let createdAt = new Date();
   
 
@@ -235,6 +236,8 @@ const specCar = (selector) => {
     dimensiKargo,
     jmlPintu,
     jmlKuris,
+    logActivity,
+    createdAt
   };
 };
 
@@ -264,11 +267,13 @@ function saveToSQL(
   dimensiKargo,
   jmlPintu,
   jmlKuris,
+  logActivity,
   generalId,
-  createdAt
+  createdAt,
+  
 ) {
   let sql =
-    "INSERT INTO specification (`kapasistasMesin`, `jmlSilinder`, `jmlKatup`, `drivetrain`, `maxTenaga`, `maxTorsi`, `jenisBahanBakar`, `kapasitasBahanBakar`, `banLebar`, `banAspekRasio`, `banDiameter`, `suspensiDepan`, `suspensiBelakang`, `tipeTransmisi`, `tipeGearBox`, `dimensiPanjang`, `dimanesiLebar`, `dimensiTinggi`, `dimensiSumbuRoda`, `dimensiGroundClearance`, `dimensiBerat`, `dimensiKargo`, `jmlPintu`, `jmlKuris`,`generalId`,`createdAt`) VALUES(?)";
+    "INSERT INTO specification (`kapasistasMesin`, `jmlSilinder`, `jmlKatup`, `drivetrain`, `maxTenaga`, `maxTorsi`, `jenisBahanBakar`, `kapasitasBahanBakar`, `banLebar`, `banAspekRasio`, `banDiameter`, `suspensiDepan`, `suspensiBelakang`, `tipeTransmisi`, `tipeGearBox`, `dimensiPanjang`, `dimanesiLebar`, `dimensiTinggi`, `dimensiSumbuRoda`, `dimensiGroundClearance`, `dimensiBerat`, `dimensiKargo`, `jmlPintu`, `jmlKuris`,`logActivity`,`generalId`,`createdAt`) VALUES(?)";
   let values = [
     kapasistasMesin,
     jmlSilinder,
@@ -294,7 +299,9 @@ function saveToSQL(
     dimensiKargo,
     jmlPintu,
     jmlKuris,
+    logActivity,
     generalId,
+    
     createdAt
   ];
   console.log(values)
@@ -314,7 +321,13 @@ db.query(query, function (error, rows, fields) {
     let array = obj;
     let hasil = array.toString();
     uriSpec = hasil
-    scrapSpec(uriSpec)
+    let urls = hasil.split(';');
+      for(let i=0;i < urls.length;i++){
+        uriSpec = urls[i];
+        console.log("uriGeneral" + uriSpec)
+        scrapSpec(uriSpec)
+      }
+   
 
     return uriSpec
     

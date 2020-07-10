@@ -3,6 +3,11 @@ const axios = require("axios").default;
 let db = require('../config/db')
 
 
+
+  
+
+
+
 const general = (selector) => {
   const tipe = selector
     .find("h2")
@@ -20,6 +25,7 @@ const general = (selector) => {
 
   let createdAt = new Date();
 
+  let logActivity	= "Created by Webcrawler"
   
 
   const brand = tipe.split(' ')[0]
@@ -37,11 +43,11 @@ const general = (selector) => {
       let array = obj;
       let hasil = array.toString();
       brandid = hasil
-      saveToSQL(tipe, hargaOtr, createdAt,brandid);
+      saveToSQL(tipe, hargaOtr,logActivity, createdAt,brandid);
     }
 
     
-    console.log("getting glob"+glob)
+    // console.log("getting glob"+glob)
    
   })
 
@@ -54,6 +60,8 @@ const general = (selector) => {
   return {
     tipe,
     hargaOtr,
+    
+    
   };
 };
 
@@ -69,10 +77,10 @@ const fethHtml = async (url) => {
 };
 
 
-function saveToSQL(tipe, hargaOtr, createdAt,brandid) {
+function saveToSQL(tipe, hargaOtr,logActivity, createdAt	,brandid) {
   
-  let sql = "INSERT INTO general (`type`, `hargaOtr`, `createdAt`, `brandId`) VALUES(?)";
-  let values = [tipe, hargaOtr, createdAt,brandid];
+  let sql = "INSERT INTO general (`type`, `hargaOtr`, `createdAt`,`logActivity`, `brandId`) VALUES(?)";
+  let values = [tipe, hargaOtr, createdAt,logActivity	,brandid];
   console.log(values);
 
   db.query(sql, [values], function (err) {
@@ -92,10 +100,12 @@ function saveToSQL(tipe, hargaOtr, createdAt,brandid) {
       let obj = Object.values(rows[0]);
       let array = obj;
       let hasil = array.toString();
-      uriGeneral = hasil
-      scrapGeneral(uriGeneral)
-
-      return uriGeneral
+      let urls = hasil.split(';');
+      for(let i=0;i < urls.length;i++){
+        uriGeneral = urls[i];
+        console.log("uriGeneral" + uriGeneral)
+        scrapGeneral(uriGeneral)
+      }
       
     }
   });
